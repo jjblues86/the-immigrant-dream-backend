@@ -5,6 +5,7 @@ import com.immigrant.theimmigrantdreambackend.exception.ResourceNotFoundExceptio
 import com.immigrant.theimmigrantdreambackend.payload.ImmigrantStoryDto;
 import com.immigrant.theimmigrantdreambackend.repository.ImmigrantStoryRepository;
 import com.immigrant.theimmigrantdreambackend.service.ImmigrantStoryService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +13,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ImmigrantStoryServiceImpl implements ImmigrantStoryService {
 
-    private ImmigrantStoryRepository immigrantStoryRepository;
-    private ModelMapper mapper;
-
-    public ImmigrantStoryServiceImpl(ImmigrantStoryRepository immigrantStoryRepository, ModelMapper mapper) {
-        this.immigrantStoryRepository = immigrantStoryRepository;
-        this.mapper = mapper;
-    }
+    private final ImmigrantStoryRepository immigrantStoryRepository;
+    private final ModelMapper mapper;
 
     @Override
     public List<ImmigrantStoryDto> getImmigrantStoriesList() {
@@ -79,13 +76,10 @@ public class ImmigrantStoryServiceImpl implements ImmigrantStoryService {
 
     private ImmigrantStory mapToEntity(final ImmigrantStoryDto immigrantStoryDto) {
 
-        ImmigrantStory immigrantStory = mapper.map(immigrantStoryDto, ImmigrantStory.class);
-        return immigrantStory;
+        return mapper.map(immigrantStoryDto, ImmigrantStory.class);
     }
 
     private ImmigrantStoryDto mapToDTO(final ImmigrantStory newImmigrantStory) {
-        ImmigrantStoryDto immigrantStoryDto = mapper.map(newImmigrantStory, ImmigrantStoryDto.class);
-        return immigrantStoryDto;
+        return mapper.map(newImmigrantStory, ImmigrantStoryDto.class);
     }
-
 }

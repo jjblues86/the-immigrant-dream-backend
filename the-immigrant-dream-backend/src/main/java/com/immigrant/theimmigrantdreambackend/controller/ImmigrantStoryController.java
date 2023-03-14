@@ -2,6 +2,7 @@ package com.immigrant.theimmigrantdreambackend.controller;
 
 import com.immigrant.theimmigrantdreambackend.payload.ImmigrantStoryDto;
 import com.immigrant.theimmigrantdreambackend.service.ImmigrantStoryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,6 @@ import java.util.List;
 @RequestMapping("/immigrant")
 public class ImmigrantStoryController {
 
-
     private final ImmigrantStoryService immigrantStoryService;
 
     /**
@@ -23,7 +23,7 @@ public class ImmigrantStoryController {
      * @return Saved story of an Immigrant story object.
      */
     @PostMapping("/story")
-    public ResponseEntity<ImmigrantStoryDto> addImmigrantStory(@RequestBody final ImmigrantStoryDto immigrantStoryDto) {
+    public ResponseEntity<ImmigrantStoryDto> addImmigrantStory(@Valid @RequestBody final ImmigrantStoryDto immigrantStoryDto) {
         final ImmigrantStoryDto savedStory = immigrantStoryService.saveImmigrantStory(immigrantStoryDto);
 
         return new ResponseEntity<>(savedStory, HttpStatus.CREATED);
@@ -55,7 +55,7 @@ public class ImmigrantStoryController {
      * @return The updated Immigrant story.
      */
     @PutMapping("/story/{id}")
-    public ResponseEntity<ImmigrantStoryDto> updateImmigrantStoryById(@PathVariable("id") String id, @RequestBody final ImmigrantStoryDto immigrantStoryDto) {
+    public ResponseEntity<ImmigrantStoryDto> updateImmigrantStoryById(@PathVariable("id") String id, @Valid @RequestBody final ImmigrantStoryDto immigrantStoryDto) {
         return ResponseEntity.ok(immigrantStoryService.updateImmigrantStory(id, immigrantStoryDto));
     }
 
